@@ -1,0 +1,1 @@
+# FastAPI-app-on-ECS-integrated-with-AWS-Distro-for-OpenTelemetry-ADOT-X-Ray-and-Cloudwatch
