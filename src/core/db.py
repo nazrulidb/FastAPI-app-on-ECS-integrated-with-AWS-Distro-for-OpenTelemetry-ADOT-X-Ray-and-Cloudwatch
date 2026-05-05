@@ -1,10 +1,11 @@
+# src/core/db.py
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker,
     AsyncSession,
 )
 from sqlalchemy.orm import DeclarativeBase
-
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor  # ← Add 1
 from src.core.config import settings
 
 
@@ -19,6 +20,7 @@ engine = create_async_engine(
     future=True,
 )
 
+SQLAlchemyInstrumentor().instrument(engine=engine.sync_engine)  # ← Add 2
 
 SessionLocal = async_sessionmaker(
     bind=engine,
