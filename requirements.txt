@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlmodel
+aws-opentelemetry-distro
+opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-logging
+opentelemetry-propagator-aws-xray
+opentelemetry-sdk-extension-aws
+python-json-logger
