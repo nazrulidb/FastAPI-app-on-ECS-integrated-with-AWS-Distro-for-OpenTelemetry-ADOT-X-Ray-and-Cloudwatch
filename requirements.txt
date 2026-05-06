@@ -10,3 +10,4 @@ opentelemetry-sdk-extension-aws
 python-json-logger
 opentelemetry-instrumentation-sqlalchemy  # ← only new package needed
 aiosqlite                                  # ← if using SQLite
+pydantic-settings
