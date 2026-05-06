@@ -6,6 +6,7 @@ opentelemetry-instrumentation-fastapi
 opentelemetry-sdk-extension-aws
 opentelemetry-instrumentation-sqlalchemy
 python-json-logger
+sqlmodel
 sqlalchemy
 aiosqlite
 pydantic-settings
