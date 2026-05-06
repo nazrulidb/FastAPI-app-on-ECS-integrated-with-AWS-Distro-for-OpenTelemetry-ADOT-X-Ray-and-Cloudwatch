@@ -13,6 +13,11 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+# AWS Auto-Instrumentation
+ENV OTEL_PYTHON_DISTRO="aws_distro"
+ENV OTEL_PYTHON_CONFIGURATOR="aws_configurator"
+
+# EXPLICITLY set PYTHONPATH to the current directory
 ENV PYTHONPATH=/app/src
 
 COPY . .
