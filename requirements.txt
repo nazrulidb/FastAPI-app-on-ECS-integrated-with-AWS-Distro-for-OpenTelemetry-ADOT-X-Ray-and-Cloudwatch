@@ -5,6 +5,8 @@ opentelemetry-exporter-otlp
 opentelemetry-instrumentation-fastapi
 opentelemetry-instrumentation-sqlalchemy
 opentelemetry-sdk-extension-aws
+opentelemetry-instrumentation-sqlalchemy
+python-json-logger
 aiosqlite
 pydantic-settings
 fastapi
