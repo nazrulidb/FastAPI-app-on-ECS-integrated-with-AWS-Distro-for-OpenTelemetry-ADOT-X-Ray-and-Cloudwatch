@@ -1,3 +1,4 @@
+aws-opentelemetry-distro
 opentelemetry-api
 opentelemetry-sdk
 opentelemetry-exporter-otlp
