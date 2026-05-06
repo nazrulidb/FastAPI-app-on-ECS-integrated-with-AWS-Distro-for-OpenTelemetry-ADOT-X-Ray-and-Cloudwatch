@@ -6,5 +6,7 @@ opentelemetry-instrumentation-fastapi
 opentelemetry-instrumentation-sqlalchemy
 opentelemetry-propagators
 opentelemetry-sdk-extension-aws
-aiosqlite                                  # ← if using SQLite
+aiosqlite
 pydantic-settings
+fastapi
+uvicorn[standard]
