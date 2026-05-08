@@ -1,0 +1,9 @@
+aws_region     = "us-east-1"
+app_name       = "fastapi-hero"
+docker_image   = "nazrulidb/fastapi-hero:latest"
+container_port = 8000
+cpu            = 512
+memory         = 1024
+desired_count  = 1
+environment    = "production"
+database_url   = "sqlite+aiosqlite:///./heroes.db"
