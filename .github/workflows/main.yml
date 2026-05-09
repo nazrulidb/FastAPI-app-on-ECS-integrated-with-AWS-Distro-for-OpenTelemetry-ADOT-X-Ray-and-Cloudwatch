@@ -12,16 +12,16 @@ jobs:
   build-and-push:
     name: Build and Push to DockerHub
     runs-on: ubuntu-latest
-
+  
     steps:
       # ── Step 1: Checkout code ──────────────────────────────────────────────
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+  
       # ── Step 2: Set up Docker Buildx ──────────────────────────────────────
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
+  
       # ── Step 3: Login to DockerHub ─────────────────────────────────────────
       - name: Login to DockerHub
         if: github.event_name == 'push'   # only login on push not PR
@@ -29,7 +29,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+   
       # ── Step 4: Extract metadata (tags & labels) ───────────────────────────
       - name: Extract Docker Metadata
         id: meta
@@ -40,7 +40,7 @@ jobs:
             type=sha,prefix=,suffix=,format=short   # commit SHA tag
             type=raw,value=latest                    # always tag latest
             type=ref,event=branch                    # branch name tag
-
+  
       # ── Step 5: Build and Push ─────────────────────────────────────────────
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
@@ -52,7 +52,38 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha      # GitHub Actions cache
           cache-to: type=gha,mode=max
-
+  
       # ── Step 6: Print image digest ─────────────────────────────────────────
       - name: Print Image Digest
         run: echo "Image pushed ${{ steps.meta.outputs.tags }}"
+  deploy:
+    name: Deploy to Amazon ECS
+    needs: build-and-push
+    if: github.event_name == 'push' # Only deploy when pushing to main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ secrets.ECS_TASK_DEFINITION }}
+          container-name: ${{ secrets.CONTAINER_NAME }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-hero:sha-${{ github.sha }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ secrets.ECS_SERVICE }}
+          cluster: ${{ secrets.ECS_CLUSTER }}
+          wait-for-service-stability: true
