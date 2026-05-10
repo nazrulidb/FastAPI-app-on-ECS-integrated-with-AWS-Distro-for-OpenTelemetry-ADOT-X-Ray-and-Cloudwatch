@@ -12,6 +12,9 @@ jobs:
   build-and-push:
     name: Build and Push to DockerHub
     runs-on: ubuntu-latest
+    outputs:
+      # Extract only the short SHA tag for deployment
+      short_sha: ${{ steps.meta.outputs.version }}
   
     steps:
       # ── Step 1: Checkout code ──────────────────────────────────────────────
@@ -37,10 +40,9 @@ jobs:
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-hero
           tags: |
-            type=sha,prefix=,suffix=,format=short   # commit SHA tag
-            type=raw,value=latest                    # always tag latest
-            type=ref,event=branch                    # branch name tag
-  
+            type=sha,prefix=,suffix=,format=short
+            type=raw,value=latest 
+      
       # ── Step 5: Build and Push ─────────────────────────────────────────────
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
@@ -84,7 +86,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: ${{ secrets.CONTAINER_NAME }}
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-hero:${{ fromJSON(needs.build-and-push.outputs.tags)[0] }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-hero:${{ needs.build-and-push.outputs.short_sha }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
