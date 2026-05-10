@@ -1,9 +1,6 @@
 ![My Diagram](./docs/UI.png)
 
 
-Build ECS infrastructure with ADOT sidecar container to send trace to X-Ray and log to CloudWatch.
-Terraform code available on terraform folder.
-Write Dockerfile to build container image:
 
 FROM python:3.11-slim
 
@@ -34,11 +31,12 @@ ENV OTEL_PYTHON_DISTRO="aws_distro"
 ENV OTEL_PYTHON_CONFIGURATOR="aws_configurator"
 
 EXPOSE 8000
-CMD ["opentelemetry-instrument", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["opentelemetry-instrument", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]	
+
 
 Build, push to DockerHub, and update docker image after any changes push to github repo. Here is the GitHub Action yaml. 
-name: Build and Push Docker Image
 
+name: Build and Push Docker Image
 on:
   push:
     branches:
@@ -134,6 +132,7 @@ jobs:
           service: ${{ secrets.ECS_SERVICE }}
           cluster: ${{ secrets.ECS_CLUSTER }}
           wait-for-service-stability: true
+		  
 
 Al assistants prompts share here:
 https://aistudio.google.com/app/prompts?state=%7B%22ids%22%3A%5B%2213eHlztbolVECoD7Sg-Hgamt7i4qCZ7-Z%22%5D%2C%22action%22%3A%22open%22%2C%22userId%22%3A%22105018193118574696765%22%2C%22resourceKeys%22%3A%7B%7D%7D&usp=drive_link
