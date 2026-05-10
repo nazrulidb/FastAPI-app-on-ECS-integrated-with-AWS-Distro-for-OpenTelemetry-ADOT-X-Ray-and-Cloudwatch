@@ -135,7 +135,7 @@ jobs:
           cluster: ${{ secrets.ECS_CLUSTER }}
           wait-for-service-stability: true
 
-
+Al assistants prompts share here:
 https://aistudio.google.com/app/prompts?state=%7B%22ids%22%3A%5B%2213eHlztbolVECoD7Sg-Hgamt7i4qCZ7-Z%22%5D%2C%22action%22%3A%22open%22%2C%22userId%22%3A%22105018193118574696765%22%2C%22resourceKeys%22%3A%7B%7D%7D&usp=drive_link
 https://aistudio.google.com/app/prompts?state=%7B%22ids%22%3A%5B%221dc7AOMwWu0DEaWWa5OE8MFuHjti200Bv%22%5D%2C%22action%22%3A%22open%22%2C%22userId%22%3A%22105018193118574696765%22%2C%22resourceKeys%22%3A%7B%7D%7D&usp=drive_link
 
