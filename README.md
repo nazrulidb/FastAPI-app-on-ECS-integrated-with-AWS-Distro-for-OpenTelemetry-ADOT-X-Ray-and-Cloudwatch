@@ -1,29 +1,21 @@
 ![My Diagram](./docs/UI.png)
 
 
+#Dockerfile
 
 FROM python:3.11-slim
-
 WORKDIR /app
-
-# Install system dependencies (IMPORTANT)
 RUN apt-get update && apt-get install -y \
     build-essential \
     gcc \
     curl \
     && rm -rf /var/lib/apt/lists/*
-
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-# AWS Auto-Instrumentation
 ENV OTEL_PYTHON_DISTRO="aws_distro"
 ENV OTEL_PYTHON_CONFIGURATOR="aws_configurator"
-
-# EXPLICITLY set PYTHONPATH to the current directory
 ENV PYTHONPATH=/app/src
-
 COPY . .
 
 ENV DATABASE_URL=sqlite+aiosqlite:///./test.db
@@ -34,7 +26,7 @@ EXPOSE 8000
 CMD ["opentelemetry-instrument", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]	
 
 
-Build, push to DockerHub, and update docker image after any changes push to github repo. Here is the GitHub Action yaml. 
+#Build, push to DockerHub, and update docker image after any changes push to github repo. Here is the GitHub Action yaml. 
 
 name: Build and Push Docker Image
 on:
@@ -50,11 +42,9 @@ jobs:
     name: Build and Push to DockerHub
     runs-on: ubuntu-latest
     outputs:
-      # Extract only the short SHA tag for deployment
       short_sha: ${{ steps.meta.outputs.version }}
   
     steps:
-      # ── Step 1: Checkout code ──────────────────────────────────────────────
       - name: Checkout Repository
         uses: actions/checkout@v4
   
