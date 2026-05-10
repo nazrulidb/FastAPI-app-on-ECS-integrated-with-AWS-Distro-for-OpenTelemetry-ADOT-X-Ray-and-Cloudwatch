@@ -3,27 +3,27 @@
 
 #Dockerfile
 
-FROM python:3.11-slim
-WORKDIR /app
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    gcc \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-ENV OTEL_PYTHON_DISTRO="aws_distro"
-ENV OTEL_PYTHON_CONFIGURATOR="aws_configurator"
-ENV PYTHONPATH=/app/src
-COPY . .
-
-ENV DATABASE_URL=sqlite+aiosqlite:///./test.db
-ENV OTEL_PYTHON_DISTRO="aws_distro"
-ENV OTEL_PYTHON_CONFIGURATOR="aws_configurator"
-
-EXPOSE 8000
-CMD ["opentelemetry-instrument", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]	
+        FROM python:3.11-slim
+        WORKDIR /app
+        RUN apt-get update && apt-get install -y \
+            build-essential \
+            gcc \
+            curl \
+            && rm -rf /var/lib/apt/lists/*
+        COPY requirements.txt .
+        RUN pip install --no-cache-dir -r requirements.txt
+        
+        ENV OTEL_PYTHON_DISTRO="aws_distro"
+        ENV OTEL_PYTHON_CONFIGURATOR="aws_configurator"
+        ENV PYTHONPATH=/app/src
+        COPY . .
+        
+        ENV DATABASE_URL=sqlite+aiosqlite:///./test.db
+        ENV OTEL_PYTHON_DISTRO="aws_distro"
+        ENV OTEL_PYTHON_CONFIGURATOR="aws_configurator"
+        
+        EXPOSE 8000
+        CMD ["opentelemetry-instrument", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]	
 
 
 #Build, push to DockerHub, and update docker image after any changes push to github repo. Here is the GitHub Action yaml. 
@@ -36,7 +36,6 @@ on:
   pull_request:
     branches:
       - main          
-
 jobs:
   build-and-push:
     name: Build and Push to DockerHub
@@ -52,7 +51,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
   
       - name: Login to DockerHub
-        if: github.event_name == 'push'   # only login on push not PR
+        if: github.event_name == 'push'   
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
