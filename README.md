@@ -32,10 +32,10 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main          # triggers on push to main
+      - main          
   pull_request:
     branches:
-      - main          # builds but does NOT push on PR
+      - main          
 
 jobs:
   build-and-push:
@@ -48,11 +48,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
   
-      # ── Step 2: Set up Docker Buildx ──────────────────────────────────────
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
   
-      # ── Step 3: Login to DockerHub ─────────────────────────────────────────
       - name: Login to DockerHub
         if: github.event_name == 'push'   # only login on push not PR
         uses: docker/login-action@v3
@@ -60,7 +58,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
    
-      # ── Step 4: Extract metadata (tags & labels) ───────────────────────────
       - name: Extract Docker Metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -70,7 +67,7 @@ jobs:
             type=sha,prefix=,suffix=,format=short
             type=raw,value=latest 
       
-      # ── Step 5: Build and Push ─────────────────────────────────────────────
+    
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
@@ -82,7 +79,6 @@ jobs:
           cache-from: type=gha      # GitHub Actions cache
           cache-to: type=gha,mode=max
   
-      # ── Step 6: Print image digest ─────────────────────────────────────────
       - name: Print Image Digest
         run: echo "Image pushed ${{ steps.meta.outputs.tags }}"
   deploy:
@@ -124,7 +120,7 @@ jobs:
           wait-for-service-stability: true
 		  
 
-Al assistants prompts share here:
+# Al assistants prompts share here:
 https://aistudio.google.com/app/prompts?state=%7B%22ids%22%3A%5B%2213eHlztbolVECoD7Sg-Hgamt7i4qCZ7-Z%22%5D%2C%22action%22%3A%22open%22%2C%22userId%22%3A%22105018193118574696765%22%2C%22resourceKeys%22%3A%7B%7D%7D&usp=drive_link
 https://aistudio.google.com/app/prompts?state=%7B%22ids%22%3A%5B%221dc7AOMwWu0DEaWWa5OE8MFuHjti200Bv%22%5D%2C%22action%22%3A%22open%22%2C%22userId%22%3A%22105018193118574696765%22%2C%22resourceKeys%22%3A%7B%7D%7D&usp=drive_link
 
