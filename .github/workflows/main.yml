@@ -84,7 +84,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: ${{ secrets.CONTAINER_NAME }}
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-hero:${{ github.sha.substring(0, 7) }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-hero:${{ slice(github.sha, 0, 7) }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
