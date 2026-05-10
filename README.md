@@ -26,7 +26,7 @@
         CMD ["opentelemetry-instrument", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]	
 
 
-#Build, push to DockerHub, and update docker image after any changes push to github repo. Here is the GitHub Action yaml. 
+#Build, push to DockerHub, and update the Docker image on ECS automatically after any changes are pushed to the GitHub repo. Here is the GitHub Action YAML. 
 
 		name: Build and Push Docker Image
 		on:
