@@ -1,5 +1,7 @@
 ![My Diagram](./docs/UI.png)
 
+Setting up AWS Distro for OpenTelemetry Collector in Amazon Elastic Container Service to send trace data to X-ray, container metrics in CloudWatch, StatsD metrics in CloudWatch, and instance metrics in CloudWatch.
+
 About AWS Distro for OpenTelemetry (ADOT):
 
 		AWS Distro for OpenTelemetry (ADOT) is a secure, production-ready, AWS-supported distribution of the Cloud Native Computing Foundation (CNCF) OpenTelemetry project. 
