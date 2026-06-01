@@ -1,6 +1,6 @@
 ![My Diagram](./docs/UI.png)
 
-This project is about FastAPI deployment using a Docker container on ECS with OpenTelemetry, X-ray, and CloudWatch.
+This project is about FastAPI deployment using Docker, Terraform, GitHub Action on ECS with OpenTelemetry, X-ray, and CloudWatch.
 
 Setting up AWS Distro for OpenTelemetry Collector in Amazon Elastic Container Service with an OpenTelemetry Collector sidecar container to send trace data to X-ray, container metrics in CloudWatch, StatsD metrics in CloudWatch, and instance metrics in CloudWatch.
 
