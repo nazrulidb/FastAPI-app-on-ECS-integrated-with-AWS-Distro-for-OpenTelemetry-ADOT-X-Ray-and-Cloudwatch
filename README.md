@@ -1,5 +1,7 @@
 ![My Diagram](./docs/UI.png)
 
+This project about FastAPI deployment using Docker container on ECS with OpenTelemetry Collector sidecar container.
+
 Setting up AWS Distro for OpenTelemetry Collector in Amazon Elastic Container Service to send trace data to X-ray, container metrics in CloudWatch, StatsD metrics in CloudWatch, and instance metrics in CloudWatch.
 
 About AWS Distro for OpenTelemetry (ADOT):
