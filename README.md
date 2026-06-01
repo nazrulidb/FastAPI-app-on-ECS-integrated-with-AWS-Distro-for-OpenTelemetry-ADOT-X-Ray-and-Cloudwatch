@@ -1,5 +1,12 @@
 ![My Diagram](./docs/UI.png)
 
+About AWS Distro for OpenTelemetry (ADOT):
+
+		AWS Distro for OpenTelemetry (ADOT) is a secure, production-ready, AWS-supported distribution of the Cloud Native Computing Foundation (CNCF) OpenTelemetry project. 
+		OpenTelemetry (OTel) provides open source APIs, libraries, and agents to collect logs, metrics, and traces.
+		
+		With ADOT, you can instrument your applications once and send correlated logs, metrics, and traces to one or more observability backends such as Amazon Managed Service for Prometheus, 
+		Amazon CloudWatch, AWS X-Ray, Amazon Open Search, any OpenTelemetry Protocol (OTLP) compliant backend, as well as Amazon Managed Streaming for Apache Kafka (MSK)
 
 #Dockerfile
 
