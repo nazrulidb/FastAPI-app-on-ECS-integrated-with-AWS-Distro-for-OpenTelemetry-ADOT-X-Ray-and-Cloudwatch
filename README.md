@@ -1,15 +1,15 @@
 ![My Diagram](./docs/UI.png)
 
-This project about FastAPI deployment using Docker container on ECS with OpenTelemetry Collector sidecar container.
+This project is about FastAPI deployment using a Docker container on ECS with OpenTelemetry, X-ray, and CloudWatch.
 
-Setting up AWS Distro for OpenTelemetry Collector in Amazon Elastic Container Service to send trace data to X-ray, container metrics in CloudWatch, StatsD metrics in CloudWatch, and instance metrics in CloudWatch.
+Setting up AWS Distro for OpenTelemetry Collector in Amazon Elastic Container Service with an OpenTelemetry Collector sidecar container to send trace data to X-ray, container metrics in CloudWatch, StatsD metrics in CloudWatch, and instance metrics in CloudWatch.
 
 About AWS Distro for OpenTelemetry (ADOT):
 
 		AWS Distro for OpenTelemetry (ADOT) is a secure, production-ready, AWS-supported distribution of the Cloud Native Computing Foundation (CNCF) OpenTelemetry project. 
 		OpenTelemetry (OTel) provides open source APIs, libraries, and agents to collect logs, metrics, and traces.
 		
-		With ADOT, you can instrument your applications once and send correlated logs, metrics, and traces to one or more observability backends such as Amazon Managed Service for Prometheus, 
+		With ADOT, you can instrument your applications once and send correlated logs, metrics, and traces to one or more observability backends such as Amazon Managed Service for Prometheus. 
 		Amazon CloudWatch, AWS X-Ray, Amazon Open Search, any OpenTelemetry Protocol (OTLP) compliant backend, as well as Amazon Managed Streaming for Apache Kafka (MSK)
 
 #Dockerfile
